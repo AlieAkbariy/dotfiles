@@ -49,43 +49,6 @@ chezmoi update
 
 ---
 
-## 📁 Configuration Overview
-
-| Path                    | Purpose                  |
-|-------------------------|--------------------------|
-| `~/.config/hypr/`       | Hyprland window manager  |
-| `~/.config/waybar/`     | Waybar status bar        |
-| `~/.config/alacritty/`  | Alacritty terminal       |
-| `~/.config/nvim/`       | Neovim IDE               |
-| `~/.zshrc`              | Zsh shell config         |
-| `~/.gitconfig`          | Git global settings      |
-
----
-
-## 🎨 Theming
-
-This setup follows a dark theme inspired by Ayu Mirage with consistent UI across:
-
-- Terminal
-- Waybar
-- GTK / Qt apps (via theming)
-- Rofi menu
-
-To install the GTK theme:
-
-```bash
-yay -S ayu-theme-gtk
-```
-
-Then apply it using `lxappearance` or by manually editing:
-
-```ini
-# ~/.config/gtk-3.0/settings.ini
-[Settings]
-gtk-theme-name = Ayu-Mirage
-```
-
----
 
 ## 🧠 Philosophy
 
