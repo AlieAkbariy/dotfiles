@@ -1,19 +1,20 @@
 # 🏴 Arch Linux Dotfiles
 
-My personal dotfiles for Arch Linux — built for a minimal, fast, and keyboard-focused Wayland desktop environment.  
+My personal dotfiles for Arch Linux — built for a minimal, fast, and keyboard-focused Wayland desktop environment using **Sway**, **Waybar**, **Foot**, and **Fish**.  
 All configurations are managed with [chezmoi](https://www.chezmoi.io/) for easy portability and reproducibility.
 
 ---
 
 ## 📦 Features
 
-- **Wayland** with [Hyprland](https://github.com/hyprwm/Hyprland)
+- **Wayland** with [Sway](https://github.com/swaywm/sway)
 - **Waybar** styled to match the [Ayu Mirage](https://github.com/ayu-theme) theme
-- **Zsh** with plugins, aliases, and completions
-- **Alacritty** and **Kitty** terminal configs
+- **Fish shell** with functions, abbreviations, and completions
+- **Foot** terminal emulator configuration
 - **Neovim** configured as a lightweight IDE
-- **Rofi**, **Thunar**, **GTK**, **Git**, and more
-- Minimal, organized, and modular setup
+- **Wofi** application launcher
+- **Thunar**, **GTK**, **Git**, and more
+- Clean, modular, and easy to maintain
 
 ---
 
@@ -48,7 +49,6 @@ chezmoi update
 ```
 
 ---
-
 
 ## 🧠 Philosophy
 
