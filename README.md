@@ -32,13 +32,13 @@ sh -c "$(curl -fsLS get.chezmoi.io)"
 Using SSH:
 
 ```bash
-chezmoi init --apply git@github.com:your-username/dotfiles.git
+chezmoi init --apply git@github.com:AlieAkbariy/dotfiles.git
 ```
 
 Using HTTPS:
 
 ```bash
-chezmoi init --apply https://github.com/your-username/dotfiles.git
+chezmoi init --apply https://github.com/AlieAkbariy/dotfiles.git
 ```
 
 ### 3. Update configs later
