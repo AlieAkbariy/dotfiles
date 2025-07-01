@@ -1,0 +1,71 @@
+* {
+  border: none;
+  border-radius: 8px;
+  font-family: "JetBrains Mono Nerd Font", "FontAwesome", sans-serif;
+  font-size: 14px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(40, 44, 52, 0.95); /* Dark semi-transparent background */
+  color: #ABB2BF;
+  margin: 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#workspaces button {
+  padding: 0 12px;
+  background: transparent;
+  color: #ABB2BF;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.focused {
+  color: #61AFEF; /* Blue accent */
+  background: rgba(97, 175, 239, 0.15);
+}
+
+#workspaces button.urgent {
+  color: #E06C75; /* Red accent */
+}
+
+#clock, #battery, #cpu, #memory, #disk, #network, #pulseaudio, #tray, #custom-spotify {
+  padding: 0 16px;
+  margin: 0 4px;
+  color: #ABB2BF;
+  background: rgba(171, 178, 191, 0.1);
+  border-radius: 8px;
+}
+
+#custom-powermenu {
+  padding: 0 16px;
+  margin: 0 8px;
+  color: #E06C75; /* Red power icon */
+  background: rgba(224, 108, 117, 0.15);
+  border-radius: 8px;
+}
+
+#battery.charging {
+  color: #98C379; /* Green charging state */
+}
+
+#network.disconnected {
+  color: #E06C75; /* Red for disconnected */
+}
+
+#pulseaudio.muted {
+  color: #E06C75; /* Red when muted */
+}
+
+#custom-mpris {
+  color: #89c0d0; /* Nord cyan */
+  padding: 0 12px;
+  margin: 0 8px;
+  background: rgba(46, 52, 64, 0.8); /* Nord dark */
+  border-radius: 6px;
+}
+
+#custom-mpris:hover {
+  background: rgba(46, 52, 64, 0.95);
+}

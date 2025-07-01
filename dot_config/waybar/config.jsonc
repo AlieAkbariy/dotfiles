@@ -1,0 +1,124 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "spacing": 8,
+  "margin-top": 6,
+  "margin-bottom": 6,
+  "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
+  "modules-center": ["sway/window"],
+  "modules-right": [
+    "custom/mpris", 
+    "tray",
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "disk",
+    "battery",
+    "clock",
+    "keyboard",
+    "custom/powermenu"
+  ],
+
+  "keyboard": {
+    "format": "{layout}",
+    "on-click": "swaymsg input type:keyboard xkb_layout 'us,ir'"
+  },
+
+
+  // Workspaces with icons
+  "sway/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "", // Programming icon
+      "2": "󰈹", // Browser icon
+      "3": "󰉋", // Folder icon
+      "4": "󰓇", // Music icon
+      "5": "󰙯",  // Chat icon 
+      "8": "",  // Chat icon 
+      "9": "", // DB icon
+      "10": "󰖂"  // VPN icon
+    },
+    "on-click": "activate"
+  },
+
+  // Spotify/MPRIS music control
+  "custom/mpris": {
+    "exec": "~/.config/waybar/scripts/mpris.sh",
+    "on-click": "playerctl play-pause",   // Toggle play/pause
+    "on-click-right": "playerctl next",   // Next track
+    "on-scroll-up": "playerctl previous", // Previous track
+    "interval": 2,                        // Update every 2s
+    "tooltip": false
+  },
+
+  // System tray
+  "tray": {
+    "icon-size": 18,
+    "spacing": 12
+  },
+
+  // PulseAudio (Volume)
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-icons": {
+      "headphones": "󰋋",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  // Network
+  "network": {
+    "format-wifi": "󰖩 {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈁 {ipaddr}",
+    "format-disconnected": "󰖪 Disconnected",
+    "tooltip-format": "󰛳 {bandwidthUpBytes} ▲ 󰛴 {bandwidthDownBytes} ▼",
+    "interval": 5
+  },
+
+  // CPU
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "interval": 5
+  },
+
+  // Memory
+  "memory": {
+    "format": "󰍛 {percentage}%",
+    "interval": 5
+  },
+
+  // Disk
+  "disk": {
+    "format": "󰋊 {percentage_used}%",
+    "path": "/",
+    "interval": 30
+  },
+
+  // Battery
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾"],
+    "interval": 5
+  },
+
+  // Clock
+  "clock": {
+    "format": "󰥔 {:%H:%M}",
+    "tooltip-format": "{:%A, %B %d, %Y}"
+  },
+
+  // Stylish Power Menu
+  "custom/powermenu": {
+    "format": "",
+    "on-click": "wlogout --protocol layer-shell",
+    "tooltip": false
+  }
+}

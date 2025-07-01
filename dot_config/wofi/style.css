@@ -1,0 +1,109 @@
+@define-color base #1e1e2e; /* Base color */
+@define-color mantle #181825; /* Darker base */
+@define-color crust #11111b; /* Darkest base */
+@define-color text #cdd6f4; /* Text color */
+@define-color subtext0 #a6adc8; /* Subtext */
+@define-color subtext1 #bac2de; /* Brighter subtext */
+@define-color surface0 #313244; /* Surface color */
+@define-color surface1 #45475a; /* Brighter surface */
+@define-color surface2 #585b70; /* Brightest surface */
+@define-color overlay0 #6c7086; /* Overlay color */
+@define-color overlay1 #7f849c; /* Brighter overlay */
+@define-color overlay2 #9399b2; /* Brightest overlay */
+@define-color blue #89b4fa; /* Blue */
+@define-color lavender #b4befe; /* Lavender */
+@define-color sapphire #74c7ec; /* Sapphire */
+@define-color sky #89dceb; /* Sky */
+@define-color teal #94e2d5; /* Teal */
+@define-color green #a6e3a1; /* Green */
+@define-color yellow #f9e2af; /* Yellow */
+@define-color peach #fab387; /* Peach */
+@define-color maroon #eba0ac; /* Maroon */
+@define-color red #f38ba8; /* Red */
+@define-color mauve #cba6f7; /* Mauve */
+@define-color pink #f5c2e7; /* Pink */
+@define-color flamingo #f2cdcd; /* Flamingo */
+@define-color rosewater #f5e0dc; /* Rosewater */
+
+/* Overall window styling */
+window {
+    background-color: @base; /* Base color */
+    color: @text; /* Text color */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid @surface0; /* Border color */
+    font-family: "FiraCode Nerd Font", sans-serif;
+    font-size: 14px;
+}
+
+/* Input box styling */
+#input {
+    background-color: @surface0; /* Surface color */
+    color: @text; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+/* Inner box styling (contains entries) */
+#inner-box {
+    background-color: transparent;
+    padding: 10px;
+}
+
+/* Outer box styling */
+#outer-box {
+    background-color: transparent;
+    margin: 5px;
+    padding: 10px;
+}
+
+/* Scrollbar styling */
+#scroll {
+    background-color: @surface0; /* Surface color */
+    border-radius: 5px;
+    margin: 5px;
+}
+
+/* Selected entry styling */
+#entry:selected {
+    background-color: @surface1; /* Brighter surface */
+    color: @text; /* Text color */
+    border-radius: 5px;
+}
+
+/* Unselected entry styling */
+#entry {
+    background-color: transparent;
+    color: @text; /* Text color */
+    padding: 5px;
+}
+
+/* Text styling for entries */
+#text {
+    background-color: transparent;
+    color: @text; /* Text color */
+}
+
+/* Image styling (if you use icons) */
+#img {
+    background-color: transparent;
+    padding: 5px;
+}
+
+/* Selected text styling */
+#text:selected {
+    color: @text; /* Text color */
+}
+
+/* Scrollbar handle styling */
+#scrollbar {
+    background-color: @surface0; /* Surface color */
+}
+
+/* Scrollbar handle styling */
+#scrollbar handle {
+    background-color: @surface1; /* Brighter surface */
+    border-radius: 5px;
+}
