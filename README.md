@@ -1,54 +1,101 @@
-# Ali Arch Hyprland Chezmoi Config
+# Ali's Arch Hyprland Dotfiles
 
-This chezmoi source recreates the Hyprland desktop config from a fresh Arch install.
+Chezmoi-managed Arch Linux desktop configuration for a 17-inch 1920x1080 laptop.
 
-It installs official Arch packages, fonts, Hyprland tools, portals, audio, network,
-Bluetooth, terminal utilities, and then applies the dotfiles.
+This repo bootstraps a fresh Arch TTY into the same Hyprland setup used on the
+current machine: Hyprland, Waybar, Wofi, Foot server/client terminal, Fish,
+GTK/Qt dark theme, NetworkManager, Bluetooth, clipboard history, screenshots,
+lock/idle handling, fonts, and terminal utilities.
 
-## Fresh Arch Usage
+## Fresh Arch Install
 
-From a TTY after installing Arch and creating your user:
+After installing Arch, creating your user, and logging into a TTY:
 
 ```bash
 sudo pacman -Syu --needed chezmoi git
-chezmoi init --apply <your-git-repo-url>
-```
-
-If the source is already local:
-
-```bash
-chezmoi apply
-```
-
-After the first apply, reboot once:
-
-```bash
+chezmoi init --apply git@github.com:AlieAkbariy/dotfiles.git
 sudo reboot
 ```
 
-Then log in and start:
+After reboot, log in and start Hyprland:
 
 ```bash
 Hyprland
 ```
 
+If you cloned the repo manually:
+
+```bash
+chezmoi init --source ~/.local/share/chezmoi
+chezmoi apply
+```
+
+## What It Installs
+
+The bootstrap script installs official Arch packages for:
+
+- Hyprland desktop: `hyprland`, `waybar`, `wofi`, `hyprpaper`, `hyprlock`, `hypridle`
+- Portals and themes: `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, GTK/Qt theme tools
+- Terminal and shell: `foot`, `fish`, `eza`, `bat`, `zoxide`, `fzf`, `ripgrep`, `fd`
+- Audio/network/Bluetooth: PipeWire, WirePlumber, NetworkManager, BlueZ
+- Utilities: screenshots, clipboard history, file manager, fonts, power profiles, UFW
+
+All package installation is in:
+
+```text
+.chezmoiscripts/run_onchange_before_00-install-arch-packages.sh.tmpl
+```
+
 ## Keybinds
 
-- `SUPER+Enter`: terminal
+- `SUPER+Enter`: open terminal
 - `SUPER+D` or `SUPER+Space`: app launcher
-- `SUPER+T`: change wallpaper
-- `SUPER+L`: lock
+- `SUPER+T`: random wallpaper
+- `SUPER+L`: lock screen
+- `SUPER+CTRL+T`: restart Foot server
 - `Print`: area screenshot
 - `Shift+Print`: full screenshot
 - `SUPER+Shift+E`: power menu
 
+## Update Workflow
+
+On the configured machine:
+
+```bash
+chezmoi cd
+git status
+chezmoi diff
+git add .
+git commit -m "Update dotfiles"
+git push
+```
+
+On a new/existing machine:
+
+```bash
+chezmoi update
+```
+
+## Validate
+
+This repo includes a validation helper that is ignored by chezmoi apply:
+
+```bash
+./tools/validate.sh
+```
+
+It checks templates, shell syntax, package names, managed targets, and common
+secret patterns.
+
 ## Secrets
 
-Plain-text SSH password aliases were not imported.
-Keep secrets in a private file, for example:
+Plain-text SSH password aliases were intentionally not imported.
+
+Keep private shell aliases outside this repo, for example:
 
 ```fish
 ~/.config/fish/conf.d/private-aliases.fish
 ```
 
-Do not commit that file unless it is encrypted.
+If secrets must live in chezmoi later, use chezmoi encryption rather than
+committing plain text.

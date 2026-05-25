@@ -1,0 +1,27 @@
+# Local/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local secrets and machine-only files
+.env
+.env.*
+*.secret
+*.secrets
+*.key
+*.pem
+private-aliases.fish
+
+# Runtime/cache output accidentally copied into source
+*.log
+*.tmp
+*.cache
+__pycache__/
+
+# Chezmoi local-only data
+.chezmoidata.local.*
+.chezmoi.local.*
