@@ -1,76 +1,52 @@
-# Ali's Arch Hyprland Dotfiles
+# Arch Hyprland Dotfiles
 
-Chezmoi-managed Arch Linux desktop configuration for a 17-inch 1920x1080 laptop.
+Minimal Arch Linux dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
-This repo bootstraps a fresh Arch TTY into the same Hyprland setup used on the
-current machine: Hyprland, Waybar, Wofi, Foot server/client terminal, Fish,
-GTK/Qt dark theme, NetworkManager, Bluetooth, clipboard history, screenshots,
-lock/idle handling, fonts, and terminal utilities.
+This setup targets a Wayland desktop built around Hyprland, Waybar, Wofi, Foot,
+Fish, NetworkManager, PipeWire, GTK/Qt dark theme, screenshots, clipboard
+history, lock/idle tools, fonts, and a small set of terminal utilities.
 
-## Fresh Arch Install
+## Install
 
-After installing Arch, creating your user, and logging into a TTY:
+From a fresh Arch TTY:
 
 ```bash
 sudo pacman -Syu --needed chezmoi git
-chezmoi init --apply git@github.com:AlieAkbariy/dotfiles.git
+chezmoi init --apply <repo-url>
 sudo reboot
 ```
 
-After reboot, log in and start Hyprland:
+After reboot:
 
 ```bash
 Hyprland
 ```
 
-If you cloned the repo manually:
+## Included
 
-```bash
-chezmoi init --source ~/.local/share/chezmoi
-chezmoi apply
-```
-
-## What It Installs
-
-The bootstrap script installs official Arch packages for:
-
-- Hyprland desktop: `hyprland`, `waybar`, `wofi`, `hyprpaper`, `hyprlock`, `hypridle`
-- Portals and themes: `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, GTK/Qt theme tools
-- Terminal and shell: `foot`, `fish`, `eza`, `bat`, `zoxide`, `fzf`, `ripgrep`, `fd`
-- Audio/network/Bluetooth: PipeWire, WirePlumber, NetworkManager, BlueZ
-- Utilities: screenshots, clipboard history, file manager, fonts, power profiles, UFW
-
-All package installation is in:
-
-```text
-.chezmoiscripts/run_onchange_before_00-install-arch-packages.sh.tmpl
-```
+- Hyprland desktop config
+- Waybar status bar
+- Wofi launcher
+- Foot terminal with server/client launcher
+- Fish shell config
+- GTK/Qt dark theme defaults
+- NetworkManager and Bluetooth applet setup
+- Clipboard history and screenshot scripts
+- Lock screen, idle handling, wallpaper switching
+- Arch package/bootstrap scripts
 
 ## Keybinds
 
-- `SUPER+Enter`: open terminal
-- `SUPER+D` or `SUPER+Space`: app launcher
-- `SUPER+T`: random wallpaper
-- `SUPER+L`: lock screen
+- `SUPER+Enter`: terminal
+- `SUPER+D` or `SUPER+Space`: launcher
+- `SUPER+T`: change wallpaper
+- `SUPER+L`: lock
 - `SUPER+CTRL+T`: restart Foot server
 - `Print`: area screenshot
 - `Shift+Print`: full screenshot
 - `SUPER+Shift+E`: power menu
 
-## Update Workflow
-
-On the configured machine:
-
-```bash
-chezmoi cd
-git status
-chezmoi diff
-git add .
-git commit -m "Update dotfiles"
-git push
-```
-
-On a new/existing machine:
+## Update
 
 ```bash
 chezmoi update
@@ -78,24 +54,17 @@ chezmoi update
 
 ## Validate
 
-This repo includes a validation helper that is ignored by chezmoi apply:
-
 ```bash
 ./tools/validate.sh
 ```
 
-It checks templates, shell syntax, package names, managed targets, and common
-secret patterns.
+## Notes
 
-## Secrets
+Review the bootstrap script before applying on a new machine:
 
-Plain-text SSH password aliases were intentionally not imported.
-
-Keep private shell aliases outside this repo, for example:
-
-```fish
-~/.config/fish/conf.d/private-aliases.fish
+```text
+.chezmoiscripts/run_onchange_before_00-install-arch-packages.sh.tmpl
 ```
 
-If secrets must live in chezmoi later, use chezmoi encryption rather than
-committing plain text.
+Secrets are not included. Keep private aliases, keys, tokens, and machine-only
+settings out of the public repo or manage them with chezmoi encryption.

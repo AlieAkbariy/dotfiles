@@ -1,29 +1,20 @@
-# Fresh Arch Notes
+# Fresh Arch Usage
 
-This repo assumes Arch is already installed and you can log in as your normal
-user from a TTY.
+This repo assumes Arch Linux is already installed and a normal user exists.
 
-Minimum first step:
+From a TTY:
 
 ```bash
 sudo pacman -Syu --needed chezmoi git
-chezmoi init --apply git@github.com:AlieAkbariy/dotfiles.git
-```
-
-The first apply installs packages and enables services. Reboot after it finishes:
-
-```bash
+chezmoi init --apply <repo-url>
 sudo reboot
 ```
 
-Then run:
+After reboot, log in and start the session:
 
 ```bash
 Hyprland
 ```
 
-If SSH GitHub auth is not ready yet, use HTTPS for the initial clone:
-
-```bash
-chezmoi init --apply https://github.com/AlieAkbariy/dotfiles.git
-```
+If SSH authentication is not ready yet, use an HTTPS repo URL for the first
+`chezmoi init`.
