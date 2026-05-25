@@ -1,0 +1,14 @@
+width=640
+height=480
+lines=9
+columns=1
+
+matching=fuzzy
+insensitive=true
+
+allow_images=true
+image_size=34
+
+layer=overlay
+gtk_dark=true
+prompt="Search"

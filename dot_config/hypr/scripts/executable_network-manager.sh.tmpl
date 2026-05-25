@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export GDK_BACKEND=wayland,x11
+export GTK_THEME=adw-gtk3-dark
+export GTK_APPLICATION_PREFER_DARK_THEME=1
+
+case "${1:-editor}" in
+  applet)
+    command -v nm-applet >/dev/null || exit 0
+    exec nm-applet --indicator
+    ;;
+  editor)
+    if command -v nm-connection-editor >/dev/null; then
+      exec nm-connection-editor
+    fi
+    exec "${TERMINAL:-{{ .chezmoi.homeDir }}/.local/bin/terminal}" nmtui
+    ;;
+  tui)
+    exec "${TERMINAL:-{{ .chezmoi.homeDir }}/.local/bin/terminal}" nmtui
+    ;;
+  *)
+    echo "usage: network-manager.sh [applet|editor|tui]" >&2
+    exit 2
+    ;;
+esac

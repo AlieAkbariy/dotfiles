@@ -1,0 +1,63 @@
+background {
+    monitor =
+    path = {{ .chezmoi.homeDir }}/.cache/current-wallpaper
+    blur_passes = 2
+    blur_size = 7
+    brightness = 0.68
+    contrast = 0.95
+    vibrancy = 0.12
+}
+
+input-field {
+    monitor =
+    size = 360, 58
+    outline_thickness = 2
+    dots_size = 0.22
+    dots_spacing = 0.45
+    dots_center = true
+    fade_on_empty = false
+    placeholder_text = Password
+
+    outer_color = rgba(125, 211, 199, 0.55)
+    inner_color = rgba(16, 18, 24, 0.68)
+    font_color = rgb(244, 240, 232)
+    check_color = rgba(241, 194, 125, 0.85)
+    fail_color = rgba(231, 130, 132, 0.85)
+
+    position = 0, -130
+    halign = center
+    valign = center
+}
+
+label {
+    monitor =
+    text = $TIME
+    font_size = 82
+    font_family = JetBrainsMono Nerd Font
+    color = rgba(244, 240, 232, 0.96)
+    position = 0, 130
+    halign = center
+    valign = center
+}
+
+label {
+    monitor =
+    text = cmd[update:1000] date +"%A, %d %B"
+    font_size = 20
+    font_family = JetBrainsMono Nerd Font
+    color = rgba(167, 176, 183, 0.95)
+    position = 0, 54
+    halign = center
+    valign = center
+}
+
+label {
+    monitor =
+    text = Ali
+    font_size = 15
+    font_family = JetBrainsMono Nerd Font
+    color = rgba(125, 211, 199, 0.95)
+    position = 0, -205
+    halign = center
+    valign = center
+}

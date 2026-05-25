@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ! -f /etc/arch-release ]]; then
+  echo "Not an Arch Linux system; skipping pacman bootstrap."
+  exit 0
+fi
+
+if (( EUID == 0 )); then
+  sudo_cmd=()
+else
+  if ! command -v sudo >/dev/null; then
+    echo "sudo is required for package installation. Install sudo or run chezmoi as root." >&2
+    exit 1
+  fi
+  sudo_cmd=(sudo)
+fi
+
+packages=(
+  chezmoi
+  git
+  sudo
+  base-devel
+  linux-firmware
+  mesa
+  vulkan-intel
+  intel-media-driver
+
+  hyprland
+  waybar
+  wofi
+  foot
+  fish
+  hyprlock
+  hypridle
+  hyprpaper
+  hyprpolkitagent
+  xdg-desktop-portal-hyprland
+  xdg-desktop-portal-gtk
+  qt5-wayland
+  qt6-wayland
+  qt5ct
+  qt6ct
+  kvantum
+  kvantum-qt5
+
+  pipewire
+  pipewire-pulse
+  wireplumber
+  alsa-utils
+  pamixer
+  playerctl
+  pavucontrol
+
+  networkmanager
+  network-manager-applet
+  bluez
+  bluez-utils
+  blueman
+  mako
+  libnotify
+  wl-clipboard
+  cliphist
+  grim
+  slurp
+  swappy
+  brightnessctl
+
+  dolphin
+  kde-cli-tools
+  xdg-utils
+  xdg-user-dirs
+  papirus-icon-theme
+  adw-gtk-theme
+  noto-fonts
+  noto-fonts-cjk
+  noto-fonts-extra
+  noto-fonts-emoji
+  ttf-hack-nerd
+  ttf-firacode-nerd
+  ttf-jetbrains-mono-nerd
+  nwg-look
+
+  eza
+  bat
+  zoxide
+  ripgrep
+  fd
+  fzf
+  btop
+  fastfetch
+  lazygit
+  dust
+  duf
+  fnm
+  code
+  firefox
+
+  pacman-contrib
+  reflector
+  openssh
+  rsync
+  sshfs
+  pass
+  proxychains-ng
+  iptables
+  curl
+  wget
+  unzip
+  zip
+  man-db
+  man-pages
+  less
+  power-profiles-daemon
+  ufw
+)
+
+"${sudo_cmd[@]}" pacman -Syu --needed --noconfirm "${packages[@]}"
+
+user_name="{{ .chezmoi.username }}"
+
+"${sudo_cmd[@]}" systemctl enable --now NetworkManager.service
+"${sudo_cmd[@]}" systemctl enable --now bluetooth.service || true
+"${sudo_cmd[@]}" systemctl enable --now fstrim.timer || true
+"${sudo_cmd[@]}" systemctl enable --now power-profiles-daemon.service || true
+
+if command -v ufw >/dev/null; then
+  "${sudo_cmd[@]}" ufw default deny incoming || true
+  "${sudo_cmd[@]}" ufw default allow outgoing || true
+  "${sudo_cmd[@]}" systemctl enable --now ufw.service || true
+fi
+
+if id "$user_name" >/dev/null 2>&1; then
+  "${sudo_cmd[@]}" usermod -aG video,input "$user_name" || true
+  if command -v fish >/dev/null && grep -q '^/usr/bin/fish$' /etc/shells; then
+    current_shell="$(getent passwd "$user_name" | cut -d: -f7)"
+    if [[ "$current_shell" != "/usr/bin/fish" ]]; then
+      "${sudo_cmd[@]}" chsh -s /usr/bin/fish "$user_name" || true
+    fi
+  fi
+fi

@@ -1,0 +1,81 @@
+@define-color base #0b0d10;
+@define-color surface #171a1f;
+@define-color surface-alt #20252d;
+@define-color border #343b46;
+@define-color teal #7dd3c7;
+@define-color rose #e6a4b4;
+@define-color amber #f1c27d;
+@define-color text #f4f0e8;
+@define-color muted #a7b0b7;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: @text;
+}
+
+window {
+  background-color: rgba(16, 18, 24, 0.96);
+  border-radius: 14px;
+  border: 1px solid rgba(125, 211, 199, 0.34);
+  padding: 16px 18px;
+  box-shadow: 0 24px 48px rgba(2, 4, 8, 0.58);
+}
+
+#outer-box {
+  padding: 0;
+}
+
+#prompt {
+  color: @teal;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#input {
+  background: @surface;
+  border-radius: 10px;
+  border: 1px solid rgba(52, 59, 70, 0.92);
+  padding: 11px 13px;
+  margin-bottom: 12px;
+  color: @text;
+}
+
+#input:focus {
+  border: 1px solid @teal;
+  box-shadow: 0 0 0 2px rgba(125, 211, 199, 0.12);
+}
+
+#scroll {
+  margin-top: 2px;
+}
+
+#entry {
+  padding: 9px 12px;
+  margin: 3px 0;
+  border-radius: 10px;
+  color: @muted;
+  background: transparent;
+}
+
+#entry:hover {
+  background: rgba(125, 211, 199, 0.1);
+}
+
+#entry:selected {
+  background: linear-gradient(120deg, @teal, @amber);
+  color: #0b0d10;
+}
+
+#text {
+  margin-left: 10px;
+}
+
+#img {
+  margin-right: 8px;
+  border-radius: 6px;
+}

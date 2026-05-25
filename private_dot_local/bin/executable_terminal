@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+socket="${XDG_RUNTIME_DIR:-/run/user/$UID}/foot-${WAYLAND_DISPLAY:-wayland-1}.sock"
+
+if command -v footclient >/dev/null; then
+  if [[ ! -S "$socket" ]]; then
+    command -v foot >/dev/null || exit 1
+    foot --server >/tmp/foot-server.log 2>&1 &
+    for _ in 1 2 3 4 5; do
+      [[ -S "$socket" ]] && break
+      sleep 0.1
+    done
+  fi
+
+  exec footclient "$@"
+fi
+
+exec foot "$@"

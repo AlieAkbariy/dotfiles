@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+home="{{ .chezmoi.homeDir }}"
+
+mkdir -p \
+  "$home/.cache" \
+  "$home/Pictures/wallpapers" \
+  "$home/Pictures/Screenshots" \
+  "$home/.local/bin" \
+  "$home/.local/share/applications"
+
+if [[ -f "$home/Pictures/wallpapers/codex-graphite-aurora.png" ]]; then
+  ln -sfn "$home/Pictures/wallpapers/codex-graphite-aurora.png" "$home/.cache/current-wallpaper"
+fi
+
+if command -v xdg-user-dirs-update >/dev/null; then
+  xdg-user-dirs-update || true
+fi
+
+systemctl --user daemon-reload >/dev/null 2>&1 || true
+systemctl --user enable --now xdg-desktop-portal.service >/dev/null 2>&1 || true
+
+if [[ -x "$home/.config/hypr/scripts/app-theme.sh" ]]; then
+  "$home/.config/hypr/scripts/app-theme.sh" dark || true
+fi
+
+if command -v fc-cache >/dev/null; then
+  fc-cache -f >/dev/null 2>&1 || true
+fi
