@@ -47,13 +47,25 @@ find "$repo/dot_config/fish" -type f \( -name '*.fish' -o -name '*.fish.tmpl' \)
   done
 
 echo "== package names =="
-awk '
-  /^packages=\(/ { in_packages=1; next }
-  /^\)/ && in_packages { exit }
-  in_packages && $1 !~ /^#/ && NF == 1 { print $1 }
-' "$repo/.chezmoiscripts/run_onchange_before_00-install-arch-packages.sh.tmpl" |
+extract_array() {
+  local array_name="$1"
+  awk -v array_name="$array_name" '
+    $0 ~ "^" array_name "=\\(" { in_array=1; next }
+    /^\)/ && in_array { exit }
+    in_array && $1 !~ /^#/ && NF == 1 { print $1 }
+  ' "$repo/.chezmoiscripts/run_onchange_before_00-install-arch-packages.sh.tmpl"
+}
+
+extract_array official_packages |
   while read -r package; do
     pacman -Si "$package" >/dev/null
+  done
+
+extract_array aur_packages |
+  while read -r package; do
+    curl -fsSL --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10 --max-time 30 \
+      "https://aur.archlinux.org/rpc/v5/info?arg[]=$package" |
+      rg -q "\"Name\":\"$package\""
   done
 
 echo "== secret scan =="

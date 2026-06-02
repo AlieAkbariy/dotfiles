@@ -37,65 +37,26 @@ EOF
   done
 }
 
-write_qt() {
-  local scheme="$1"
-  local icons="$2"
+write_kde() {
+  local color_scheme="$1"
+  local scheme_name="$2"
+  local icons="$3"
+  local look_and_feel="$4"
 
-  mkdir -p "$HOME/.config/qt5ct" "$HOME/.config/qt6ct"
-  cat > "$HOME/.config/qt5ct/qt5ct.conf" <<EOF
-[Appearance]
-color_scheme_path=/usr/share/qt5ct/colors/$scheme.conf
-custom_palette=true
-icon_theme=$icons
-standard_dialogs=default
-style=Fusion
-
-[Fonts]
+  mkdir -p "$HOME/.config"
+  cat > "$HOME/.config/kdeglobals" <<EOF
+[General]
+ColorScheme=$color_scheme
+Name=$scheme_name
 fixed="FiraCode Nerd Font,12,-1,5,50,0,0,0,0,0"
-general="Noto Sans,10,-1,5,50,0,0,0,0,0"
+font="Noto Sans,10,-1,5,50,0,0,0,0,0"
 
-[Interface]
-activate_item_on_single_click=1
-buttonbox_layout=0
-cursor_flash_time=1000
-dialog_buttons_have_icons=1
-double_click_interval=400
-gui_effects=@Invalid()
-keyboard_scheme=2
-menus_have_icons=true
-show_shortcuts_in_context_menus=true
-stylesheets=@Invalid()
-toolbutton_style=4
-underline_shortcut=1
-wheel_scroll_lines=3
-EOF
+[Icons]
+Theme=$icons
 
-  cat > "$HOME/.config/qt6ct/qt6ct.conf" <<EOF
-[Appearance]
-color_scheme_path=/usr/share/qt6ct/colors/$scheme.conf
-custom_palette=true
-icon_theme=$icons
-standard_dialogs=default
-style=Fusion
-
-[Fonts]
-fixed="FiraCode Nerd Font,12,-1,5,50,0,0,0,0,0"
-general="Noto Sans,10,-1,5,50,0,0,0,0,0"
-
-[Interface]
-activate_item_on_single_click=1
-buttonbox_layout=0
-cursor_flash_time=1000
-dialog_buttons_have_icons=1
-double_click_interval=400
-gui_effects=@Invalid()
-keyboard_scheme=2
-menus_have_icons=true
-show_shortcuts_in_context_menus=true
-stylesheets=@Invalid()
-toolbutton_style=4
-underline_shortcut=1
-wheel_scroll_lines=3
+[KDE]
+LookAndFeelPackage=$look_and_feel
+SingleClick=false
 EOF
 }
 
@@ -105,7 +66,7 @@ case "$mode" in
     gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark 2>/dev/null || true
     gsettings set org.gnome.desktop.interface icon-theme Adwaita 2>/dev/null || true
     write_gtk "adw-gtk3-dark" "Adwaita" "1"
-    write_qt "darker" "Adwaita"
+    write_kde "BreezeDark" "Breeze Dark" "breeze-dark" "org.kde.breezedark.desktop"
     notify "Dark mode" "New apps will prefer dark colors"
     ;;
   light)
@@ -113,7 +74,7 @@ case "$mode" in
     gsettings set org.gnome.desktop.interface gtk-theme Adwaita 2>/dev/null || true
     gsettings set org.gnome.desktop.interface icon-theme Adwaita 2>/dev/null || true
     write_gtk "Adwaita" "Adwaita" "0"
-    write_qt "airy" "Adwaita"
+    write_kde "BreezeLight" "Breeze Light" "breeze" "org.kde.breeze.desktop"
     notify "Light mode" "New apps will prefer light colors"
     ;;
   *)
